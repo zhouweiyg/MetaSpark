@@ -1,0 +1,102 @@
+package com.ynu
+
+import org.apache.spark.SparkConf
+import org.apache.spark.SparkContext
+import org.apache.spark.SparkContext.rddToPairRDDFunctions
+import org.apache.spark.rdd.RDD
+import redis.clients.jedis.ShardedJedisPool
+import com.ynu.common.RedisClientFactory
+import com.ynu.common.MetaSparkUtility
+
+/**
+ * 存到Redis 存成普通 Key-Value
+ */
+object CreateRefIndexToRedis3 {
+
+  def main(args: Array[String]): Unit = {
+    /**
+     * --refindex    <string>   reads genome sequences file
+     */
+    if (args.length < 1) {
+      System.err.println("-----ERROR:Usage --refindex")
+      System.exit(1)
+    }
+
+    // parase the params
+    val refIndexFilePath = if (args.indexOf("--refindex") > -1) args(args.indexOf("--refindex") + 1).trim else ""
+
+    if (refIndexFilePath.equals("")) {
+      System.err.println("-----ERROR:Usage --refindex")
+      System.exit(1)
+    }
+
+    val conf = new SparkConf()
+    conf.set("spark.default.parallelism", "138")
+      .set("spark.akka.frameSize", "1024")
+      .set("spark.storage.memoryFraction", "0.5")
+      .set("spark.shuffle.memoryFraction", "0.3")
+      .set("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
+      .set("spark.rdd.compress", "true")
+      .set("spark.kryoserializer.buffer.mb", "256")
+
+    val sc = new SparkContext(conf)
+
+    val refIndexRDD = sc.textFile(refIndexFilePath).map(x => {
+      val splitPoint = x.replace("(", "").replace(")", "").split(',')
+      (splitPoint(0).toString, (splitPoint(1).toInt, splitPoint(2).toInt))
+    })
+
+    val idxGBK: RDD[(String, Iterable[(Int, Int)])] = refIndexRDD.groupByKey()
+
+    val tmpIdxResult = idxGBK.mapPartitions(idxPartition => {
+      // 内部类，初始化连接池，程序退出时自动销毁
+      object InternalRedisClient extends Serializable {
+        @transient private var jedisShardedPool: ShardedJedisPool = null
+
+        def makePool(): Unit = {
+          if (jedisShardedPool == null) {
+            jedisShardedPool = new ShardedJedisPool(RedisClientFactory.getPoolConfig, RedisClientFactory.shardsServerHostList)
+
+            val hook = new Thread {
+              override def run = jedisShardedPool.destroy()
+            }
+            sys.addShutdownHook(hook.run)
+          }
+        }
+
+        def getPool: ShardedJedisPool = {
+          assert(jedisShardedPool != null)
+          jedisShardedPool
+        }
+      }
+
+      InternalRedisClient.makePool
+      val jedisShardedPool = InternalRedisClient.getPool
+
+      idxPartition.map(x => {
+        val refString = x._1
+        val refPosition = x._2
+
+        var positionMap = new java.util.HashMap[String, String]()
+
+        // 因为Kmer在一个ref中可能有很多个位置，所以Redis设置Key不能仅仅以ref number，这里设置refNumber-position为Key
+        // [ref-position:""]
+
+        val sentinelConnection = jedisShardedPool.getResource
+        val refPositionStr = new StringBuffer
+        
+        refPosition.foreach(x => {
+          refPositionStr.append(x._1.toString + "-" + x._2.toString+ ",")
+        })
+        
+        sentinelConnection.set(refString, refPositionStr.deleteCharAt(refPositionStr.length() - 1).toString())
+        sentinelConnection.close
+      })
+    })
+
+    println("--------refIndex:" + tmpIdxResult.count)
+
+    sc.stop()
+  }
+
+}
