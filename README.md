@@ -7,16 +7,16 @@ Usage
 -----
 
 Usage:   MetaSpark [options]
-|Parameter name|Parameter type|Parameter meaning|
-|-----|:----:|-----:|
-|--read	|string	|reads file|
-|-- ref| 	string|	reference genome sequences file|
-|--refindex|	string|	reference genome sequences index file|
-|--result| 	string|	output recruitments file|
-|--identity|	int|	sequence identity threshold(%), default=75 (-c)|
-|--aligment|	int|	minimal alignment coverage control for the read (g=0), default=30 (-m)|
-|--evalue| 	double|	e-value cutoff, default=10 (-e)|
-|--kmersize|	int|	k-mer size (8<=k<=12), default=11 (-k)|
+| Parameter name | Parameter type | Parameter meaning |
+| ----- | :----: | -----: |
+| --read |string	| reads file |
+| -- ref | 	string |	reference genome sequences file |
+| --refindex |	string |	reference genome sequences index file |
+| --result | 	string |	output recruitments file |
+| --identity |	int | 	sequence identity threshold(%), default=75 (-c) |
+| --aligment |	int |	minimal alignment coverage control for the read (g=0), default=30 (-m) |
+| --evalue | 	double |	e-value cutoff, default=10 (-e) |
+| --kmersize |	int |	k-mer size (8<=k<=12), default=11 (-k) |
 
 
 example:
