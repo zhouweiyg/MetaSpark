@@ -6,16 +6,10 @@ MetaSpark is an efficient fragment recruitment algorithm for next generation seq
 Usage
 -----
 
-| ABCD | EFGH | IJKL |
-| -----|:----:| ----:|
-| a    | b    | c    |
-| d    | e    |  f   |
-| g    | h    |   i  |
-
 Usage:   MetaSpark [options]
 
 | Parameter name | Parameter type | Parameter meaning |
-| ----- | :----: | -----: |
+| ----- | :---- | :----- |
 | --read |string	| reads file |
 | -- ref | 	string |	reference genome sequences file |
 | --refindex |	string |	reference genome sequences index file |
