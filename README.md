@@ -21,7 +21,7 @@ Usage:   MetaSpark [options]
 | Parameter name | Parameter type | Parameter meaning |
 | ----- | :---- | :----- |
 | --read |string	| reads file |
-| -- ref | 	string |	reference genome sequences file |
+| --ref | 	string |	reference genome sequences file |
 | --refindex |	string |	reference genome sequences index file |
 | --result | 	string |	output recruitments file |
 | --identity |	int | 	sequence identity threshold(%), default=75 (-c) |
@@ -30,7 +30,7 @@ Usage:   MetaSpark [options]
 | --kmersize |	int |	k-mer size (8<=k<=12), default=11 (-k) |
 
 
-The default output format of FR-HIT recruitment result file looks like:
+The default output format of MetaSpark recruitment result file looks like:
 
         ReadNumber	ReadLength	E-value	AlignmentLength	Begin	End	Strand	Identity	Begin	End  ReferenceSequenceName
 
@@ -46,13 +46,13 @@ The default output format of FR-HIT recruitment result file looks like:
 
 Run the MetaSpark:
 --------
-You should upload the reads and reference file to the HDFS cluster before you run the MetaSpark programming.  
+MetaSpark is based on Spark platform and it's data is stored in Hadoop HDFS, you should upload the reads and reference file to the HDFS cluster before you run the MetaSpark programming.  
 
         spark-submit --class com.ynu.MetaSpark --master spark://{spark master address}:{port} --name {app name} {MetaSpark jar file} --read {read file path on HDFS} --ref {reference file path on HDFS} --result {result store path}  --identity 90 --aligment 40
 
 The MetaSpark also provide a function to create reference index and store it to HDFS, so that you can save a lots of time if you run the test with the same reference file. 
 
-        spark-submit --class com.ynu.CreateRefIndex --master spark://{spark master address}:{port} --name {app name} {MetaSpark jar file} --ref {reference file path on HDFS} --kmersize 11
+        spark-submit --class com.ynu.CreateRefIndexToHDFS --master spark://{spark master address}:{port} --name {app name} {MetaSpark jar file} --ref {reference file path on HDFS} --kmersize 11
         
 After you create the reference index, you can use it in the new test.
 
