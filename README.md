@@ -27,16 +27,16 @@ example:
 
 The default output format of FR-HIT recruitment result file looks like:
 
-        ReadName	ReadLength	E-value	AlignmentLength	Begin	End	Strand	Identity	ReferenceSequenceName	Begin	End
+        ReadNumber	ReadLength	E-value	AlignmentLength	Begin	End	Strand	Identity	Begin	End  ReferenceSequenceName
 
-        1_lane2_1       75nt    8.3e-25 69      69      1       -       95.01%     Acidaminococcus_D21     486841311       486841379
-        1_lane2_1       75nt    8.3e-25 69      69      1       -       95.23%     Ruminococcus_5_1_39B_FAA        3450573 3450641
-        1_lane2_9       75nt    2.2e-25 64      1       64      +       98.81%     Acidaminococcus_D21     7901322 7901385
-        1_lane2_9       75nt    2.2e-25 64      1       64      +       98.90%     Alistipes_putredinis_DSM_17216  1029618 1029681
-        1_lane2_10      75nt    4.5e-23 72      1       72      +       93.32%     Acidaminococcus_D21     453948881       453948952
-        1_lane2_10      75nt    4.5e-23 72      1       72      +       93.67%     Prevotella_copri_DSM_18205      3128442 3128513
-        1_lane2_11      75nt    1.7e-22 74      75      2       -       91.21%     Acidaminococcus_D21     451839012       451839085
-        1_lane2_11      75nt    1.7e-22 74      75      2       -       91.08%     Prevotella_copri_DSM_18205      1018573 1018646
+1	75nt	4.7e-25	69	1	-	95.65%	3450573	3450641	Ruminococcus_5_1_39B_FAA
+9	75nt	1.2e-25	1	64	+	98.44%	1029618	1029681	Alistipes_putredinis_DSM_17216
+10	75nt	2.5e-23	1	72	+	93.06%	3128442	3128513	Prevotella_copri_DSM_18205
+11	75nt	9.6e-23	75	2	-	91.89%	1018573	1018646	Prevotella_copri_DSM_18205
+14	75nt	1.0e-07	4	45	+	90.48%	301211	301252	Bacteroides_capillosus_ATCC_29799
+17	75nt	1.6e-28	69	1	-	98.55%	133030	133098	Bacteroides_vulgatus_ATCC_8482
+17	75nt	1.6e-28	69	1	-	98.55%	1718708	1718776	Bacteroides_D4
+17	75nt	1.6e-28	69	1	-	98.55%	601790	601858	Bacteroides_9_1_42FAA
 
 FR-HIT supports PSL output format and users can also use psl2sam.pl to convert PSL format to SAM format.
 
