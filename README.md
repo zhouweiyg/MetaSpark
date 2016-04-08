@@ -11,7 +11,7 @@ MetaSpark is build using Apache Maven. To build MetaSpark, run:
         cd metaspark
         mvn compile package
 
-You will get a jar file in target folder if you package the source file successfully. Then, you can run the MetaSpark.
+You will get a jar file in target folder if you package the source file successfully. Then, you can run MetaSpark.
 
 Usage
 --------
@@ -44,13 +44,13 @@ The default output format of MetaSpark recruitment result file looks like:
         17	75nt	1.6e-28	69	1	-	98.55%	601790	601858	Bacteroides_9_1_42FAA
 
 
-Run the MetaSpark:
+Run MetaSpark:
 --------
 MetaSpark is based on Spark platform and it's data is stored in Hadoop HDFS, you should upload the reads and reference file to the HDFS cluster before you run the MetaSpark programming.  
 
         spark-submit --class com.ynu.MetaSpark --master spark://{spark master address}:{port} --name {app name} {MetaSpark jar file} --read {read file path on HDFS} --ref {reference file path on HDFS} --result {result store path}  --identity 90 --aligment 40
 
-The MetaSpark also provide a function to create reference index and store it to HDFS, so that you can save a lots of time if you run the test with the same reference file. 
+MetaSpark also provide a function to create reference index and store it to HDFS, so you can save a lots of time if you run the test with the same reference file. 
 
         spark-submit --class com.ynu.CreateRefIndexToHDFS --master spark://{spark master address}:{port} --name {app name} {MetaSpark jar file} --ref {reference file path on HDFS} --kmersize 11
         
