@@ -11,8 +11,10 @@ MetaSpark is build using Apache Maven. To build MetaSpark, run:
         cd metaspark
         mvn compile package
 
+You will get a jar file in target folder if you package the source file successfully. Then, you can run the MetaSpark.
+
 Usage
------
+--------
 
 Usage:   MetaSpark [options]
 
@@ -42,8 +44,8 @@ The default output format of FR-HIT recruitment result file looks like:
         17	75nt	1.6e-28	69	1	-	98.55%	601790	601858	Bacteroides_9_1_42FAA
 
 
-run the MetaSpark:
-----
+Run the MetaSpark:
+--------
 You should upload the reads and reference file to the HDFS cluster before you run the MetaSpark programming.  
 
         spark-submit --class com.ynu.MetaSpark --master spark://{spark master address}:{port} --name {app name} {MetaSpark jar file} --read {read file path on HDFS} --ref {reference file path on HDFS} --result {result store path}  --identity 90 --aligment 40
