@@ -8,8 +8,8 @@ Usage
 
 Usage:   MetaSpark [options]
 |Parameter name|Parameter type|Parameter meaning|
-|:================|:================:|:================:|
-|--read	|string	|reads file
+|-----|:----:|-----:|
+|--read	|string	|reads file|
 |-- ref| 	string|	reference genome sequences file|
 |--refindex|	string|	reference genome sequences index file|
 |--result| 	string|	output recruitments file|
