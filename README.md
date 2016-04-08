@@ -2,6 +2,14 @@ MetaSpark
 ===========
 MetaSpark is an efficient fragment recruitment algorithm for next generation sequences against microbial reference genomes.
 
+Install
+--------
+
+MetaSpark is build using Apache Maven. To build MetaSpark, run:
+
+        git clone https://github.com/zhouweiyg/metaspark.git
+        cd metaspark
+        mvn compile package
 
 Usage
 -----
@@ -20,11 +28,6 @@ Usage:   MetaSpark [options]
 | --kmersize |	int |	k-mer size (8<=k<=12), default=11 (-k) |
 
 
-example:
-
-        spark-submit --class com.ynu.MetaSpark --master spark://{spark master address}:{port} --name {app name} {MetaSpark jar file} --read {read file path on HDFS} --ref {reference file path on HDFS} --result {result store path}  --identity 90 --aligment 40
-
-
 The default output format of FR-HIT recruitment result file looks like:
 
         ReadNumber	ReadLength	E-value	AlignmentLength	Begin	End	Strand	Identity	Begin	End  ReferenceSequenceName
@@ -38,17 +41,17 @@ The default output format of FR-HIT recruitment result file looks like:
         17	75nt	1.6e-28	69	1	-	98.55%	1718708	1718776	Bacteroides_D4
         17	75nt	1.6e-28	69	1	-	98.55%	601790	601858	Bacteroides_9_1_42FAA
 
-FR-HIT supports PSL output format and users can also use psl2sam.pl to convert PSL format to SAM format.
 
-Install
---------
+example:
+You should upload the reads and reference file to the HDFS cluster before you run the MetaSpark programming.  
 
-MetaSpark is build using Apache Maven. To build MetaSpark, run:
+        spark-submit --class com.ynu.MetaSpark --master spark://{spark master address}:{port} --name {app name} {MetaSpark jar file} --read {read file path on HDFS} --ref {reference file path on HDFS} --result {result store path}  --identity 90 --aligment 40
 
-        git clone https://github.com/zhouweiyg/metaspark.git
-        cd metaspark
-        mvn compile package
+The MetaSpark also provide a function to create reference index and store it to HDFS, so that you can save a lots of time if you run the test with the same reference file. 
 
+        spark-submit --class com.ynu.CreateRefIndex --master spark://{spark master address}:{port} --name {app name} {MetaSpark jar file} --ref {reference file path on HDFS} --kmersize 11
+        
+After you create the reference index, you can use it in the new test.
 
-
+        spark-submit --class com.ynu.MetaSpark --master spark://{spark master address}:{port} --name {app name} {MetaSpark jar file} --read {read file path on HDFS} --ref {reference file path on HDFS} --refindex {reference index file path on HDFS} --result {result store path}  --identity 90 --aligment 40
 
