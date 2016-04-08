@@ -27,16 +27,16 @@ example:
 
 The default output format of FR-HIT recruitment result file looks like:
 
-        ReadNumber	ReadLength	E-value	AlignmentLength	Begin	End	Strand	Identity	Begin	End  ReferenceSequenceName
+|  ReadNumber	ReadLength	E-value	AlignmentLength	Begin	End	Strand	Identity	Begin	End  ReferenceSequenceName
 
-1	75nt	4.7e-25	69	1	-	95.65%	3450573	3450641	Ruminococcus_5_1_39B_FAA
-9	75nt	1.2e-25	1	64	+	98.44%	1029618	1029681	Alistipes_putredinis_DSM_17216
-10	75nt	2.5e-23	1	72	+	93.06%	3128442	3128513	Prevotella_copri_DSM_18205
-11	75nt	9.6e-23	75	2	-	91.89%	1018573	1018646	Prevotella_copri_DSM_18205
-14	75nt	1.0e-07	4	45	+	90.48%	301211	301252	Bacteroides_capillosus_ATCC_29799
-17	75nt	1.6e-28	69	1	-	98.55%	133030	133098	Bacteroides_vulgatus_ATCC_8482
-17	75nt	1.6e-28	69	1	-	98.55%	1718708	1718776	Bacteroides_D4
-17	75nt	1.6e-28	69	1	-	98.55%	601790	601858	Bacteroides_9_1_42FAA
+| 1	75nt	4.7e-25	69	1	-	95.65%	3450573	3450641	Ruminococcus_5_1_39B_FAA
+| 9	75nt	1.2e-25	1	64	+	98.44%	1029618	1029681	Alistipes_putredinis_DSM_17216
+| 10	75nt	2.5e-23	1	72	+	93.06%	3128442	3128513	Prevotella_copri_DSM_18205
+| 11	75nt	9.6e-23	75	2	-	91.89%	1018573	1018646	Prevotella_copri_DSM_18205
+| 14	75nt	1.0e-07	4	45	+	90.48%	301211	301252	Bacteroides_capillosus_ATCC_29799
+| 17	75nt	1.6e-28	69	1	-	98.55%	133030	133098	Bacteroides_vulgatus_ATCC_8482
+| 17	75nt	1.6e-28	69	1	-	98.55%	1718708	1718776	Bacteroides_D4
+| 17	75nt	1.6e-28	69	1	-	98.55%	601790	601858	Bacteroides_9_1_42FAA
 
 FR-HIT supports PSL output format and users can also use psl2sam.pl to convert PSL format to SAM format.
 
