@@ -43,6 +43,7 @@ The default output format of FR-HIT recruitment result file looks like:
 
 
 example:
+
 You should upload the reads and reference file to the HDFS cluster before you run the MetaSpark programming.  
 
         spark-submit --class com.ynu.MetaSpark --master spark://{spark master address}:{port} --name {app name} {MetaSpark jar file} --read {read file path on HDFS} --ref {reference file path on HDFS} --result {result store path}  --identity 90 --aligment 40
