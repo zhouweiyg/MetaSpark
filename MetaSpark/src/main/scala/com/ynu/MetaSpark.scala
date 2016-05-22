@@ -120,12 +120,12 @@ object MetaSpark {
     val sparkContext = new SparkContext(conf)
 
     // 如果输出目录存在，删除
-    val output = new org.apache.hadoop.fs.Path(resultFilePath);
-    val hdfs = org.apache.hadoop.fs.FileSystem.get(
-      new java.net.URI("hdfs://hadoop-cluster"), new org.apache.hadoop.conf.Configuration())
+    // val output = new org.apache.hadoop.fs.Path(resultFilePath);
+    // val hdfs = org.apache.hadoop.fs.FileSystem.get(
+    //  new java.net.URI("hdfs://hadoop-cluster"), new org.apache.hadoop.conf.Configuration())
 
     // 删除输出目录  
-    if (hdfs.exists(output)) hdfs.delete(output, true)
+    // if (hdfs.exists(output)) hdfs.delete(output, true)
 
     //-------------make ref index ------------------------------------------------------------------
     // reffile
