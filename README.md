@@ -8,10 +8,10 @@ Install
 MetaSpark is build using Apache Maven. To build MetaSpark, run:
 
         git clone https://github.com/zhouweiyg/metaspark.git
-        cd metaspark
+        cd metaspark/MetaSpark
         mvn compile package
 
-You will get a jar file in target folder if you package the source file successfully. Then, you can run MetaSpark.
+You will get two jar file in target folder if you package the source file successfully. Then, you can use MetaSparkV2-0-0.1-SNAPSHOT-executable.jar to test MetaSpark.
 
 Usage
 --------
