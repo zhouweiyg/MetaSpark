@@ -34,7 +34,7 @@ import scala.util.control.Breaks.break
 import scala.util.control.Breaks.breakable
 import org.apache.spark.SparkConf
 import org.apache.spark.SparkContext
-import org.apache.spark.SparkContext.rddToPairRDDFunctions
+//import org.apache.spark.SparkContext.rddToPairRDDFunctions
 import org.apache.spark.broadcast.Broadcast
 import org.apache.spark.rdd.RDD
 import com.ynu.common.MetaSparkUtility
