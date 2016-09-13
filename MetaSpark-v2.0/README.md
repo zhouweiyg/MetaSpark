@@ -57,4 +57,10 @@ MetaSpark also provide a function to create reference index and store it to HDFS
 After you create the reference index, you can use it in the new test.
 
         spark-submit --class com.ynu.MetaSpark --master spark://{spark master address}:{port} --name {app name} {MetaSpark jar file} --read {read file path on HDFS} --ref {reference file path on HDFS} --refindex {reference index file path on HDFS} --result {result store path}  --identity 90 --aligment 40
+        
+
+Run frhit2pairend.pl:
+--------
+     perl frhit2pairend.pl {read data file 1} {read data file 2} {metaspark output 1} {metaspark output 2} 200
+       
 
