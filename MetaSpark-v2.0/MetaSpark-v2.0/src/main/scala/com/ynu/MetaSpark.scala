@@ -34,7 +34,7 @@ import scala.util.control.Breaks.break
 import scala.util.control.Breaks.breakable
 import org.apache.spark.SparkConf
 import org.apache.spark.SparkContext
-//import org.apache.spark.SparkContext.rddToPairRDDFunctions
+import org.apache.spark.SparkContext.rddToPairRDDFunctions
 import org.apache.spark.broadcast.Broadcast
 import org.apache.spark.rdd.RDD
 import com.ynu.common.MetaSparkUtility
@@ -173,6 +173,18 @@ object MetaSpark {
     //-------------prepare the read rdd ------------------------------------------------------------
     val readFileRDD = sparkContext.textFile(readFilePath)
 
+    val readFileSize = readFileRDD.map(_.length).reduce(_+_)//1000000000
+    //println( "_----------------------------------------______---------------------"+readFileSize)
+    if(readFileSize>8988894){// 8988895
+        println("The read files are larger than 1G. Continue?(yes/no)")
+        val content = Console.readLine()
+        if (content!="Y" && content!="y" && content!="yes" && content!="\n") {
+        
+            println("exit...")
+            System.exit(0)
+        }
+    }
+
     // --add reverse comlementary read ----
     val reverseComplementaryFileRDD = readFileRDD.map(x => {
       // reverse and pair
@@ -197,6 +209,8 @@ object MetaSpark {
     // --add direction info--
     val directionForwardFileRDD = readFileRDD.map(x => x + " " + "+")
     val directionReverseComplementaryFileRDD = reverseComplementaryFileRDD.map(x => x + " " + "-")
+    directionReverseComplementaryFileRDD.cache.take(1)
+    println ("------init: " + new java.util.Date())
 
     def FR_Hit_Main(readRDD: RDD[String]): RDD[(String, MetaSparkEntity)] = {
 
@@ -230,6 +244,8 @@ object MetaSpark {
         }
         tmp //(Read,Kbin)
       })
+      readListRDD.cache.take(1)
+      println ("------start forward: " + new java.util.Date())
 
       // idxGBK: RDD[(String, Iterable[(Int, Int)])]
       // readList: (Read, String, Int) : (1	>1_lane2_1	75	-	,AAATATTTAGT,0)
@@ -312,6 +328,8 @@ object MetaSpark {
         })
         l1
       })
+      open_phit.cache.take(1)
+      println ("------read end: " + new java.util.Date())
 
       val ali = open_phit.mapPartitions(x => {
         // (Number, name, ref, length)
@@ -388,9 +406,12 @@ object MetaSpark {
       })
       alignment
     }
-
-    val forwardAlignmentRDD = FR_Hit_Main(directionForwardFileRDD)
-    val reverseComplementaryAlignmentRDD = FR_Hit_Main(directionReverseComplementaryFileRDD)
+    val forwardAlignmentRDD = FR_Hit_Main(directionForwardFileRDD).cache
+    forwardAlignmentRDD.take(1)
+    println ("------forward end: " + new java.util.Date())
+    val reverseComplementaryAlignmentRDD = FR_Hit_Main(directionReverseComplementaryFileRDD).cache
+    reverseComplementaryAlignmentRDD.take(1)
+    println ("------reverse end: " + new java.util.Date())
 
     val allAlignmentRDD = forwardAlignmentRDD.union(reverseComplementaryAlignmentRDD)
 
