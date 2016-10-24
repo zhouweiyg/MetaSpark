@@ -175,13 +175,14 @@ object MetaSpark {
 
     val readFileSize = readFileRDD.map(_.length).reduce(_+_)//1000000000
     //println( "_----------------------------------------______---------------------"+readFileSize)
-    if(readFileSize>8988894){// 8988895
+    if(readFileSize>1000000000){// 8988895
         println("The read files are larger than 1G. Continue?(yes/no)")
         val content = Console.readLine()
         if (content!="Y" && content!="y" && content!="yes" && content!="\n") {
         
             println("exit...")
-            System.exit(0)
+            //System.exit(0)
+            sparkContext.stop()
         }
     }
 
