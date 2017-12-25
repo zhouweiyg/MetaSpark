@@ -1,6 +1,7 @@
 MetaSpark
 ===========
 MetaSpark is an efficient fragment recruitment algorithm for next generation sequences against microbial reference genomes.
+The runtime environment includes JDK1.8.0_151, Scala2.11.8, Hadoop2.7.4 and Spark2.2.0.
 
 Install
 --------

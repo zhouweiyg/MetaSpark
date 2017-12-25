@@ -26,23 +26,15 @@
  
 package com.ynu 
 
+import com.ynu.algorithm.AlgorithmBase
+import com.ynu.entity.{MetaSparkEntity, Read, Reference}
+import org.apache.spark.{SparkConf, SparkContext}
+import org.apache.spark.broadcast.Broadcast
+import org.apache.spark.rdd.RDD
+
 import scala.collection.immutable.IndexedSeq
 import scala.collection.mutable.ArrayBuffer
 import scala.math.abs
-import scala.math.exp
-import scala.util.control.Breaks.break
-import scala.util.control.Breaks.breakable
-import org.apache.spark.SparkConf
-import org.apache.spark.SparkContext
-import org.apache.spark.SparkContext.rddToPairRDDFunctions
-import org.apache.spark.broadcast.Broadcast
-import org.apache.spark.rdd.RDD
-import com.ynu.common.MetaSparkUtility
-import com.ynu.entity.MetaSparkEntity
-import com.ynu.entity.WorkingPara
-import com.ynu.entity.Reference
-import com.ynu.entity.Read
-import com.ynu.algorithm.AlgorithmBase
 
 /**
  * @author hadoop
